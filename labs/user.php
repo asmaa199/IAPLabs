@@ -26,7 +26,8 @@
        public static function create()
        {
            
-           $instance = new self();
+          
+          $instance = new self("","", "","","");
            return $instance;
        }
        public function setUsername($username)
@@ -113,11 +114,11 @@
        {
            $con = new DBConnector;
            $found = false;
-           $res = mysql_query("SELECT * FROM user") or die("Error" .mysql_error());
+           $res = mysqli_query($con->conn,"SELECT * FROM user");
 
-           while($row = mysql_fetch_array($res))
+           while($row = mysqli_fetch_array($res))
            {
-               if(password_verify($this->getPassword(), $row['password']) && $this->getUsername == $row['username'])
+               if(password_verify($this->getPassword(), $row['password']) && $this->getUsername() == $row['username'])
                {
                    $found = true;
                }

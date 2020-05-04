@@ -15,9 +15,10 @@
            $instance->login();
            $con->closeDatabase();
            $instance->createUserSession();
+            
        }else{
            $con->closeDatabase();
-           header("Loactaion:login.php");
+           header("Location:login.php");
        }
    }
 ?>
