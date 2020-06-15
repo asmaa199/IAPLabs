@@ -2,8 +2,9 @@
    include_once 'DBConnector.php';
    include('crud.php');
    include('authencticator.php');
+   include_once "fileUploader.php";
  
-  $conn = new DBConnector;
+  
 
    class User implements Crud,Authenticator {
        private $user_id;
@@ -14,6 +15,8 @@
        private $username;
        private $password;
 
+       //Access the directory this way meanwhile
+       private static $target_directory="uploads/";
        function __construct($first_name,$last_name,$city_name,$username,$password)
        {
           $this->first_name = $first_name;
@@ -56,7 +59,7 @@
        {
           return $this->user_id;
        }
-       public function save($conn)
+       public function save()
        {
            $fn = $this->first_name;
            $ln = $this->last_name;
@@ -64,8 +67,11 @@
            $uname = $this->username;
            $this->hashPassword();
            $pass = $this->password;
+           $file_name=$_FILES["fileToUpload"]["name"];
+           $dir=self::$target_directory.$file_name;
 
-           $res = mysqli_query($conn,"INSERT INTO user(first_name,last_name,user_city,username,password)  VALUES('$fn','$ln','$city','$uname','$pass')");
+           $con = new DBConnector;
+           $res = mysqli_query($con->conn,"INSERT INTO user(first_name,last_name,user_city,username,password,file_name,file_dir)  VALUES('$fn','$ln','$city','$uname','$pass','$file_name','$dir')");
 
            return $res;
        }
