@@ -1,10 +1,10 @@
-$(document).ready(function(){
+$(document).ready(function()
+{
+	var offset = new Date().getTimezoneOffset();
+	var timestamp = new Date().getTime();
+	var utc_timestamp = timestamp + (60000 * offset);
 
-    var offset = new Date().getTimezoneOffset();
-    var timestamp = new Date().getTime();
-
-    var utc_timestamp = timestamp + (6000*offset);
-
-    $('#time_zone_offset').val(offset);
-    $('#utc_timestamp').val(utc_timestamp);
+	//The following lines of code set the values in the input elements of the lab1.php file
+	$('#time_zone_offset').val(offset);
+	$('#utc_timestamp').val(utc_timestamp);
 });
